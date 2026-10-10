@@ -1,73 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CloudRP Autumn Loading</title>
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: Arial, sans-serif;
-    }
-
-    .wrap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: #000;
-    }
-
-    video, .fallback {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: #000;
-    }
-
-    .fallback {
-      display: none;
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.00) 0%, rgba(0,0,0,0.08) 100%);
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CloudRP — Осенняя загрузка</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#195b98}
+body{background-image:url('autumn.gif');background-position:center center;background-size:cover;background-repeat:no-repeat}
+</style>
 </head>
-<body>
-  <div class="wrap">
-    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
-      <source src="cloudrp_autumn_loading.mp4" type="video/mp4" />
-    </video>
-
-    <img class="fallback" id="fallbackGif" src="cloudrp_autumn_loading.gif" alt="CloudRP autumn loading" />
-    <div class="overlay"></div>
-  </div>
-
-  <script>
-    const video = document.getElementById('bgVideo');
-    const fallback = document.getElementById('fallbackGif');
-
-    video.addEventListener('error', () => {
-      video.style.display = 'none';
-      fallback.style.display = 'block';
-    });
-
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        video.style.display = 'none';
-        fallback.style.display = 'block';
-      });
-    }
-  </script>
-</body>
+<body></body>
 </html>
