@@ -1,36 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>CloudRP — загрузка</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudRP Autumn Loading</title>
   <style>
-    html,body { margin:0; width:100%; height:100%; overflow:hidden; background:#17496a; }
-    .bg { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; }
-    video { display:block; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: Arial, sans-serif;
+    }
+
+    .wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+    }
+
+    video, .fallback {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+    }
+
+    .fallback {
+      display: none;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.00) 0%, rgba(0,0,0,0.08) 100%);
+    }
   </style>
 </head>
 <body>
-  <video class="bg" autoplay muted loop playsinline preload="auto" poster="autumn.gif">
-    <source src="autumn.mp4" type="video/mp4">
-  </video>
+  <div class="wrap">
+    <video id="bgVideo" autoplay muted loop playsinline preload="auto">
+      <source src="cloudrp_autumn_loading.mp4" type="video/mp4" />
+    </video>
+
+    <img class="fallback" id="fallbackGif" src="cloudrp_autumn_loading.gif" alt="CloudRP autumn loading" />
+    <div class="overlay"></div>
+  </div>
+
   <script>
-    (function(){
-      var video=document.querySelector('video');
-      var fallback=null;
-      function showFallback(){
-        if (fallback) return;
-        fallback=document.createElement('img');
-        fallback.className='bg';
-        fallback.src='autumn.gif';
-        fallback.alt='Осенний экран загрузки CloudRP';
-        video.style.display='none';
-        document.body.appendChild(fallback);
-      }
-      video.addEventListener('error',showFallback);
-      var promise=video.play();
-      if (promise && typeof promise.catch==='function') promise.catch(showFallback);
-    })();
+    const video = document.getElementById('bgVideo');
+    const fallback = document.getElementById('fallbackGif');
+
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+      fallback.style.display = 'block';
+    });
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        video.style.display = 'none';
+        fallback.style.display = 'block';
+      });
+    }
   </script>
 </body>
 </html>
